@@ -12,6 +12,7 @@ for key, value in items.iteritems() :
     if (key != 'subrep' and key != 'imgnum'):
 
        pkname = ntpath.basename(value.split("%")[14])
+       parm = ""
 
        if (pkname != ""):
           parm = "-i ~/.ssh/" + pkname.replace('.ppk','.pem')
@@ -29,5 +30,7 @@ for key, value in items.iteritems() :
        sessionlist.append(d)
 
 
+sortsessionlist = sorted(sessionlist, key=lambda x: x['name']) 
+
 with open('bookmarks.json', 'w') as fp:
-    json.dump({'list':[{'list': sessionlist,'name': "Mobaxterm",'type': "FOLDER"}],'name': "Root",'type': "FOLDER"}, fp, sort_keys=True, indent=4)
+    json.dump({'list':[{'list': sortsessionlist,'name': "Mobaxterm",'type': "FOLDER"}],'name': "Root",'type': "FOLDER"}, fp, sort_keys=True, indent=4)
